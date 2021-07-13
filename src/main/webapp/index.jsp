@@ -11,16 +11,29 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>CAS Example Java Web App</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+    </style>
 </head>
 <body>
 
 <h1>CAS Example Java Web App</h1>
-<p>A sample web application that exercises the CAS protocol features via the Java CAS Client.</p>
+<sub>A sample web application that exercises the CAS protocol features via the Java CAS Client.</sub>
 <hr>
 
-<p><b>Authenticated User Id:</b> <a href="logout.jsp" title="Click here to log out"><%= request.getRemoteUser() %>
-</a></p>
+<p>
+    <h4> You, <span class="badge badge-primary"><%= request.getRemoteUser() %></span>, have logged in. </h4>
+    <a href="logout.jsp" class="badge badge-danger">Log Out</a>
+</p>
+
+
 
 <%
     if (request.getUserPrincipal() != null) {
@@ -30,17 +43,16 @@
 
         if (attributes != null) {
             Iterator attributeNames = attributes.keySet().iterator();
-            out.println("<b>Attributes:</b>");
+            out.println("<h3>Attributes</h3>");
 
             if (attributeNames.hasNext()) {
-                out.println("<hr><table border='3pt' width='100%'>");
-                out.println("<th colspan='2'>Attributes</th>");
-                out.println("<tr><td><b>Key</b></td><td><b>Value</b></td></tr>");
+                out.println("<table border='4pt' width='100%''>");
+                out.println("<tr><td><b>Name</b></td><td><b>Value</b></td></tr>");
 
                 for (; attributeNames.hasNext(); ) {
                     out.println("<tr><td>");
                     String attributeName = (String) attributeNames.next();
-                    out.println(attributeName);
+                    out.println("<code>" + attributeName + "</code>");
                     out.println("</td><td>");
                     final Object attributeValue = attributes.get(attributeName);
 
@@ -49,11 +61,11 @@
                         out.println("<strong>Multi-valued attribute: " + values.size() + "</strong>");
                         out.println("<ul>");
                         for (Object value : values) {
-                            out.println("<li>" + value + "</li>");
+                            out.println("<li><kbd>" + value + "</kbd></li>");
                         }
                         out.println("</ul>");
                     } else {
-                        out.println(attributeValue);
+                        out.println("<kbd>" + attributeValue + "</kbd>");
                     }
                     out.println("</td></tr>");
                 }
@@ -68,6 +80,11 @@
         out.println("<pre>The user principal is empty from the request object. Review the wrapper filter configuration.</pre>");
     }
 %>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 </body>
 </html>

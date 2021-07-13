@@ -17,7 +17,7 @@ the application server in the [`web.xml`](https://github.com/UniconLabs/cas-samp
 mvn clean package jetty:run-forked
 ```
 
-The application will be available on ports 9080 (http) and 9443 (https).
+The application will be available on ports 9080 (http) and 9446 (https).
  
 ## Testing High Availability
 
